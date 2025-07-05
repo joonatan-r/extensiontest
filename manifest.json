@@ -18,7 +18,9 @@
     "scripts":["background.js"]
   },
   "permissions":[
-      "nativeMessaging"
+      "nativeMessaging",
+      "storage",
+      "tabs"
   ],
   "browser_specific_settings": {
     "gecko": {
