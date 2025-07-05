@@ -15,21 +15,24 @@ let t = setInterval(() => {
     }
 }, 200);
 
-let done2 = false;
-let tries2 = 0;
 let t2 = setInterval(() => {
-    for (const s of document.getElementsByTagName("button")) {
-        if (s.innerHTML.toLowerCase().includes(">skip<")) {
-            sendScreenMiddle(s);
-            done2 = true;
-            break;
-        }
+    const skip = document.getElementsByClassName("ytp-skip-ad-button")[0];
+    if (skip) {
+        sendScreenMiddle(skip);
     }
-    tries2++;
-    // if (done2) {
-    //     clearInterval(t2);
-    // }
 }, 200);
+
+let ads = false;
+let t3 = setInterval(() => {
+    const adsNew = document.getElementsByClassName("ytp-ad-button-icon").length > 0;
+    if (ads && !adsNew) {
+        document.getElementsByClassName("ytp-mute-button")[0]?.click();
+    }
+    if (!ads && adsNew) {
+        document.getElementsByClassName("ytp-mute-button")[0]?.click();
+    }
+    ads = adsNew;
+}, 100);
 
 function sendScreenMiddle(element) {
     const rect = element.getBoundingClientRect();
