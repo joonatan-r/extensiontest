@@ -59,12 +59,3 @@ function sendScreenMiddle(element) {
         browser.runtime.sendMessage({ coords: String(x).padStart(5, "0") + String(y).padStart(5, "0") }).then(console.log);
     }
 }
-
-// const button = document.createElement("button");
-// button.innerHTML = "test";
-// button.onclick = async () => {
-//     console.log("clicked");
-//     const response = await browser.runtime.sendMessage({ greeting: "hello" });
-//     console.log(response);
-// };
-// document.body.appendChild(button);

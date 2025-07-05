@@ -1,7 +1,7 @@
 {
-  "name": "extensiontest",
-  "description": "Example host for native messaging",
-  "path": "C:\\Users\\something\\native\\ext.exe",
+  "name": "skipperclicker",
+  "description": "Host for clicking",
+  "path": "C:\\Users\\joonatan\\Desktop\\extensiontest\\native\\ext.exe",
   "type": "stdio",
-  "allowed_extensions": ["extensiontest@example.org"]
+  "allowed_extensions": ["skipperclicker@myextensions.org"]
 }

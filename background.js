@@ -9,25 +9,14 @@ function onError(error) {
 
 browser.browserAction.onClicked.addListener(() => {
   console.log("Sending pingpingpongpong");
-  let sending = browser.runtime.sendNativeMessage("extensiontest", "pingpingpongpong");
+  let sending = browser.runtime.sendNativeMessage("skipperclicker", "pingpingpongpong");
   sending.then(onResponse, onError);
 });
-
-// var port = browser.runtime.connectNative("extensiontest");
-
-// port.onMessage.addListener((response) => {
-//   console.log("Received: " + response);
-// });
-
-// browser.browserAction.onClicked.addListener(() => {
-//   console.log("Sending:  ping");
-//   port.postMessage("ping");
-// });
 
 browser.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     console.log(request);
-    let sending = browser.runtime.sendNativeMessage("extensiontest", request.coords);
+    let sending = browser.runtime.sendNativeMessage("skipperclicker", request.coords);
     sending.then(onResponse, onError);
     sendResponse({ status: "ok" });
   }
