@@ -10,6 +10,18 @@ let t = setInterval(() => {
         }
     }
     tries++;
+    if (!done) {
+        for (const s of document.getElementsByTagName("button")) {
+            if (
+                s.innerHTML.toLowerCase().includes(">reject all<")
+                || s.innerHTML.toLowerCase().includes(">hylkää kaikki<")
+            ) {
+                s.click();
+                done = true;
+                break;
+            }
+        }
+    }
     if (done || tries > 50) {
         clearInterval(t);
     }
