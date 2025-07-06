@@ -35,10 +35,12 @@ browser.runtime.onMessage.addListener(
 );
 
 // hold auto clickable elements on page load in format like:
-// {
-// "span": ["reject all"],
-// "button": [">reject all<"]
-// }
+/*
+    {
+        "span": ["reject all"],
+        "button": [">reject all<", ">hylkää kaikki<", ">necessary cookies only<"]
+    }
+*/
 
 let options = {};
 
@@ -88,6 +90,23 @@ let t3 = setInterval(() => {
     }
     ads = adsNew;
 }, 100);
+
+// disable fullscreen from double click, otherwise auto switches if skips 
+let done4 = false;
+let tries4 = 0;
+let t4 = setInterval(() => {
+    for (const v of document.getElementsByTagName("video")) {
+        v.addEventListener("dblclick", e => {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+        done4 = true;
+    }
+    tries4++;
+    if (done4 || tries4 > 50) {
+        clearInterval(t4);
+    }
+}, 200);
 
 function sendScreenMiddle(element) {
     const rect = element.getBoundingClientRect();
