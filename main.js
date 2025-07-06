@@ -74,7 +74,7 @@ let t = setInterval(() => {
 
 let t2 = setInterval(() => {
     const skip = document.getElementsByClassName("ytp-skip-ad-button")[0];
-    if (skip) {
+    if (skip && skip.style.display !== "none") {
         sendScreenMiddle(skip);
     }
 }, 200);
@@ -108,16 +108,32 @@ let t4 = setInterval(() => {
     }
 }, 200);
 
+// TODO stop spamming until skip button was not found/invisible after one send
+
 function sendScreenMiddle(element) {
     const rect = element.getBoundingClientRect();
     let x = Math.floor(window.screenX + rect.x + (rect.width / 2));
     // actually slightly off trying to account for top bar area, but close enough
     let y = Math.floor(window.screenY + (window.outerHeight - window.innerHeight) + rect.y + (rect.height / 2));
     console.log(`${x} ${y}`);
+    // lazy way to work on second monitor, which has to be a 1920 width on the left of main
+    let scaler = window.screen.left === -1920 ? 0.75 : 1;
     // convert to Windows relative system
-    x = Math.floor((x / window.screen.width) * 65535);
-    y = Math.floor((y / window.screen.height) * 65535);
-    if (x > 0 && y > 0) {
-        browser.runtime.sendMessage({ coords: String(x).padStart(5, "0") + String(y).padStart(5, "0") }).then(console.log);
+    x = Math.floor((x / window.screen.width) * 65535 * scaler);
+    y = Math.floor((y / window.screen.height) * 65535 * scaler);
+    let xStr;
+    let yStr;
+    if (x < 0) {
+        xStr = String(Math.abs(x)).padStart(6, "0");
+        xStr = xStr.replace("0", "-");
+    } else {
+        xStr = String(x).padStart(6, "0");
     }
+    if (y < 0) {
+        yStr = String(Math.abs(y)).padStart(6, "0");
+        yStr = yStr.replace("0", "-");
+    } else {
+        yStr = String(y).padStart(6, "0");
+    }
+    browser.runtime.sendMessage({ coords: xStr + yStr }).then(console.log);
 }

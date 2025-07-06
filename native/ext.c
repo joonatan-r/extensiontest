@@ -21,22 +21,24 @@ unsigned char readbuffer[1024];
 // only support one byte representable size because lazy
 fread(&readbuffer, 1, readsizebuffer[0], stdin);
 
-char xcoords[6];
-char ycoords[6];
+char xcoords[7];
+char ycoords[7];
 
 xcoords[0] = readbuffer[1]; // skip initial quote
 xcoords[1] = readbuffer[2];
 xcoords[2] = readbuffer[3];
 xcoords[3] = readbuffer[4];
 xcoords[4] = readbuffer[5];
-xcoords[5] = '\0';
+xcoords[5] = readbuffer[6];
+xcoords[6] = '\0';
 
-ycoords[0] = readbuffer[6];
-ycoords[1] = readbuffer[7];
-ycoords[2] = readbuffer[8];
-ycoords[3] = readbuffer[9];
-ycoords[4] = readbuffer[10];
-ycoords[5] = '\0';
+ycoords[0] = readbuffer[7];
+ycoords[1] = readbuffer[8];
+ycoords[2] = readbuffer[9];
+ycoords[3] = readbuffer[10];
+ycoords[4] = readbuffer[11];
+ycoords[5] = readbuffer[12];
+ycoords[6] = '\0';
 
 int x;
 int y;
