@@ -72,10 +72,16 @@ let t = setInterval(() => {
     }
 }, 200);
 
+let done2 = false;
 let t2 = setInterval(() => {
     const skip = document.getElementsByClassName("ytp-skip-ad-button")[0];
     if (skip && skip.style.display !== "none") {
-        sendScreenMiddle(skip);
+        if (!done2) {
+            sendScreenMiddle(skip);
+            done2 = true;
+        }
+    } else {
+        done2 = false;
     }
 }, 200);
 
@@ -107,8 +113,6 @@ let t4 = setInterval(() => {
         clearInterval(t4);
     }
 }, 200);
-
-// TODO stop spamming until skip button was not found/invisible after one send
 
 function sendScreenMiddle(element) {
     const rect = element.getBoundingClientRect();

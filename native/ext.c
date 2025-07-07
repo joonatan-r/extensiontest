@@ -45,11 +45,20 @@ int y;
 sscanf(xcoords, "%d", &x);
 sscanf(ycoords, "%d", &y);
 
+DWORD width = GetSystemMetrics(SM_CXSCREEN);
+DWORD height = GetSystemMetrics(SM_CYSCREEN);
+POINT p;
+GetCursorPos(&p);
+int prevX = (p.x / (float) width) * 65535;
+int prevY = (p.y / (float) height) * 65535;
+
 mouse_event(MOUSEEVENTF_MOVE | MOUSEEVENTF_ABSOLUTE, x, y, 0, 0);
 Sleep(100);
 mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
 Sleep(100);
 mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+Sleep(100);
+mouse_event(MOUSEEVENTF_MOVE | MOUSEEVENTF_ABSOLUTE, prevX, prevY, 0, 0);
 Sleep(1000);
 
 unsigned char buffer[4];
